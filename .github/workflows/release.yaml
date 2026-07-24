@@ -46,17 +46,7 @@ jobs:
       - name: Compile Installer with Inno Setup
         shell: pwsh
         run: |
-          $iscc = Get-ChildItem `
-            "C:\Program Files*\Inno Setup*\ISCC.exe" `
-            -Recurse
-
-          if (-not $iscc) {
-            throw "ISCC.exe not found."
-          }
-
-          Write-Host "Using Inno Setup compiler at: $($iscc.FullName)"
-
-          & $iscc.FullName setup.iss
+          & "C:\Program Files\Inno Setup 7\ISCC.exe" setup.iss
 
       - name: Upload Release Assets
         uses: softprops/action-gh-release@v2
