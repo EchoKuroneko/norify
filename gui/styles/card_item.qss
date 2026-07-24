@@ -1,0 +1,42 @@
+QFrame#Card {
+    background-color: {card_bg_rgba};
+    border: 1px solid {card_border_rgba};
+    border-radius: 8px;
+}
+
+QFrame#Card QLabel {
+    background: transparent;
+    border: none;
+}
+
+QFrame#Card QWidget {
+    background: transparent;
+}
+
+QLabel#CardTitleLabel {
+    color: {title_rgba};
+    background: transparent;
+}
+
+QLabel#CardTimeLabel {
+    color: #a6adc8;
+    background: transparent;
+}
+
+QLabel#CardMsgLabel {
+    color: {msg_rgba};
+    background: transparent;
+}
+
+QPushButton#CardDeleteBtn {
+    background: transparent;
+    border: none;
+    color: #f38ba8;
+    font-size: 11px;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+QPushButton#CardDeleteBtn:hover {
+    background-color: rgba(243, 139, 168, 0.2);
+}

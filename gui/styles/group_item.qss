@@ -1,0 +1,35 @@
+QFrame#GroupListItem {
+    background-color: {group_item_bg_rgba};
+    border: 1px solid {group_item_border_rgba};
+    border-radius: 6px;
+}
+
+QFrame#GroupListItem QLabel {
+    background: transparent;
+    border: none;
+}
+
+QLabel#GroupItemTitleLabel {
+    color: {title_rgba};
+}
+
+QLabel#GroupItemTimeLabel {
+    color: #a6adc8;
+}
+
+QLabel#GroupItemMsgLabel {
+    color: {msg_rgba};
+}
+
+QPushButton#GroupItemDeleteBtn {
+    background: transparent;
+    border: none;
+    color: #f38ba8;
+    font-size: 11px;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+QPushButton#GroupItemDeleteBtn:hover {
+    background-color: rgba(243, 139, 168, 0.2);
+}

@@ -1,0 +1,78 @@
+QWidget {
+    background-color: transparent;
+}
+
+QScrollArea#CardScrollArea {
+    background-color: transparent;
+    border: none;
+}
+
+QScrollArea#CardScrollArea > QWidget > QWidget {
+    background: transparent;
+}
+
+QWidget#CardListContainer {
+    background: transparent;
+}
+
+QPushButton#SidebarFilterBtn {
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 8px;
+    text-align: left;
+    color: #a6adc8;
+    font-size: 12px;
+}
+
+QPushButton#SidebarFilterBtn:hover {
+    background-color: {border_rgba};
+    color: {title_rgba};
+}
+
+QPushButton#SidebarFilterBtn:checked {
+    background-color: {border_rgba};
+    color: {accent_rgba};
+    font-weight: bold;
+}
+
+QLabel#DateLabel {
+    color: #a6adc8;
+    font-size: 11px;
+}
+
+QDateEdit#DateEdit {
+    background-color: {bg_rgba};
+    border: 1px solid {border_rgba};
+    border-radius: 6px;
+    padding: 4px 8px;
+    color: {title_rgba};
+    font-size: 12px;
+}
+
+QDateEdit#DateEdit::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 18px;
+    border-left: none;
+}
+
+QPushButton#DateGoBtn {
+    background-color: {border_rgba};
+    border: none;
+    border-radius: 6px;
+    padding: 4px 8px;
+    color: {title_rgba};
+    font-size: 12px;
+    font-weight: bold;
+}
+
+QPushButton#DateGoBtn:hover {
+    background-color: {accent_rgba};
+    color: #11111b;
+}
+
+QLabel#EmptyNoticeLabel {
+    color: #6c7086;
+    margin-top: 30px;
+}

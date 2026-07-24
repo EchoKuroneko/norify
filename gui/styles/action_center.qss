@@ -1,0 +1,189 @@
+QWidget#ModalBackdrop {
+    background-color: rgba(0, 0, 0, 0.65);
+}
+
+QFrame#ActionCenterCard {
+    background-color: {bg_rgba};
+    border: 1px solid {border_rgba};
+    border-radius: {border_radius};
+    color: {title_rgba};
+    font-family: 'Segoe UI', sans-serif;
+}
+
+QLabel#ActionCenterTitle {
+    color: {title_rgba};
+    font-size: 14px;
+    font-weight: bold;
+    background: transparent;
+}
+
+QFrame#ConfirmOverlay {
+    background-color: {bg_rgba};
+    border: 1px solid #f38ba8;
+    border-radius: {border_radius};
+}
+
+QLabel#ConfirmTitle {
+    color: #f38ba8;
+    background: transparent;
+}
+
+QLabel#ConfirmMsg {
+    color: {body_rgba};
+    background: transparent;
+}
+
+QPushButton#ConfirmYesBtn {
+    background-color: #f38ba8;
+    color: #11111b;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 14px;
+    font-weight: bold;
+}
+
+QPushButton#ConfirmYesBtn:hover {
+    background-color: #f5e0dc;
+}
+
+QPushButton#ConfirmNoBtn {
+    background-color: {border_rgba};
+    color: {title_rgba};
+    border: none;
+    border-radius: 5px;
+    padding: 6px 14px;
+}
+
+QPushButton#ConfirmNoBtn:hover {
+    background-color: {title_rgba};
+    color: {bg_rgba};
+}
+
+/* Sidebar Date Filters */
+QPushButton.SidebarFilterBtn {
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    color: {body_rgba};
+    text-align: left;
+    font-size: 13px;
+}
+
+QPushButton.SidebarFilterBtn:hover {
+    background-color: {border_rgba};
+    color: {title_rgba};
+}
+
+QPushButton.SidebarFilterBtn:checked {
+    background-color: {border_rgba};
+    color: {title_rgba};
+    font-weight: bold;
+}
+
+QScrollBar:vertical {
+    background: transparent;
+    width: 8px;
+    margin: 0px;
+}
+
+QScrollBar::handle:vertical {
+    background: {border_rgba};
+    min-height: 25px;
+    border-radius: 4px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background: {title_rgba};
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0px;
+    background: none;
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: none;
+}
+
+QLineEdit#SearchInput {
+    background-color: {search_bg};
+    border: 1px solid {border_rgba};
+    border-radius: 6px;
+    padding: 8px 12px;
+    color: {title_rgba};
+}
+
+QLineEdit#SearchInput:focus {
+    border: 1px solid #89b4fa;
+}
+
+QPushButton#DndBtn, QPushButton#SettingsBtn {
+    background-color: {border_rgba};
+    border: 1px solid {border_rgba};
+    border-radius: 6px;
+    padding: 5px 12px;
+    color: {title_rgba};
+    font-weight: bold;
+}
+
+QPushButton#DndBtn:checked {
+    background-color: #89b4fa;
+    color: #11111b;
+}
+
+QPushButton#DndBtn:hover {
+    background-color: #ecf38b;
+    color: #11111b;
+}
+
+QPushButton#SettingsBtn:hover {
+    background-color: {title_rgba};
+    color: {bg_rgba};
+}
+
+QPushButton#ClearBtn {
+    background-color: transparent;
+    border: 1px solid #f38ba8;
+    border-radius: 6px;
+    padding: 5px 12px;
+    color: #f38ba8;
+    font-weight: bold;
+}
+
+QPushButton#ClearBtn:hover {
+    background-color: #f38ba8;
+    color: #11111b;
+}
+
+QLabel#SortLabel, QLabel#ViewLabel {
+    color: {body_rgba};
+    font-size: 13px;
+    background: transparent;
+}
+
+QComboBox#SortCombo, QComboBox#ViewCombo {
+    background-color: {search_bg};
+    border: 1px solid {border_rgba};
+    border-radius: 6px;
+    padding: 4px 8px;
+    color: {body_rgba};
+}
+
+QComboBox#SortCombo::drop-down, QComboBox#ViewCombo::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 20px;
+    border-left: none;
+}
+
+QComboBox QAbstractItemView {
+    background-color: {bg_rgba};
+    color: {body_rgba};
+    border: 1px solid {border_rgba};
+    border-radius: 6px;
+    padding: 4px;
+    outline: 0px;
+    selection-background-color: {border_rgba};
+    selection-color: {title_rgba};
+}

@@ -1,0 +1,64 @@
+QWidget {
+    background-color: transparent;
+}
+
+QScrollArea#GroupScrollArea {
+    background-color: transparent;
+    border: none;
+}
+
+QScrollArea#GroupScrollArea > QWidget > QWidget {
+    background: transparent;
+}
+
+QWidget#GroupListContainer {
+    background: transparent;
+}
+
+QFrame#GroupFrame {
+    background: transparent;
+    border: none;
+}
+
+QWidget#GroupHeaderBar {
+    background-color: {bg_rgba};
+    border: 1px solid {border_rgba};
+    border-radius: 4px;
+}
+
+QWidget#GroupHeaderBar:hover {
+    background-color: {border_hover_rgba};
+}
+
+QLabel#GroupArrowLabel {
+    border: none;
+    background: transparent;
+}
+
+QLabel#GroupTitleLabel {
+    color: {title_rgba};
+    border: none;
+    background: transparent;
+}
+
+QPushButton#GroupClearBtn {
+    background: transparent;
+    border: none;
+    color: #f38ba8;
+    font-size: 11px;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+QPushButton#GroupClearBtn:hover {
+    background-color: rgba(243, 139, 168, 0.2);
+}
+
+QWidget#GroupItemsContainer {
+    background: transparent;
+}
+
+QLabel#EmptyNoticeLabel {
+    color: #6c7086;
+    margin-top: 30px;
+}

@@ -1,0 +1,37 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging (PyInstaller & build outputs)
+build/
+dist/
+*.egg-info/
+Output/
+
+# PyInstaller temporary spec files (keep your custom Norify.spec if tracked, ignore generated ones if needed)
+# *.spec
+
+# Virtual Environments
+venv/
+ENV/
+env/
+
+# IDE / Editor specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated thumbnails and metadata
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# Cache Folders
+assets/cache/

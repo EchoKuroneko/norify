@@ -1,0 +1,162 @@
+/* Settings Card Outer Container */
+QFrame#SettingsContainer {
+    background-color: {bg_rgba};
+    border: 1px solid {border_rgba};
+    border-radius: {border_radius};
+}
+
+/* Headers */
+QLabel#HeaderTitle {
+    color: {title_rgba};
+}
+
+QLabel#SubHeader, QLabel {
+    color: {body_rgba};
+}
+
+/* Divider Line */
+QFrame#Divider {
+    background-color: {border_rgba};
+    max-height: 1px;
+}
+
+/* Pin & Close Buttons */
+QPushButton#PinBtn {
+    background-color: {pin_bg};
+    color: {pin_color};
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+QPushButton#PinBtn:hover {
+    background-color: {border_rgba};
+}
+
+QPushButton#CloseBtn {
+    background-color: transparent;
+    color: {body_rgba};
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+QPushButton#CloseBtn:hover {
+    background-color: rgba(243, 139, 168, 0.2);
+    color: {close_hover_rgba};
+}
+
+/* ComboBoxes */
+QComboBox {
+    background-color: "{border_rgba}";
+    color: {body_rgba};
+    border: 1px solid {border_rgba};
+    border-radius: 6px;
+    padding: 6px 32px 6px 12px;
+    font-family: 'Segoe UI';
+}
+
+QComboBox:focus, QComboBox:on {
+    border: 1px solid {accent_rgba};
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: center right;
+    width: 32px;
+    border: none;
+    background: transparent;
+}
+
+QComboBox::down-arrow {
+    width: 0px;
+    height: 0px;
+    border-left: 5px solid rgba(0, 0, 0, 0.1);
+    border-right: 5px solid rgba(0, 0, 0, 0.1);
+    border-top: 6px solid {dropdown_arrow_rgba};
+    margin-right: 12px;
+    margin-top: 2px;
+}
+
+QComboBox QAbstractItemView {
+    background-color: {bg_rgba};
+    color: {body_rgba};
+    border: 1px solid {border_rgba};
+    border-radius: 6px;
+    padding: 4px;
+    outline: 0px;
+    selection-background-color: {border_rgba};
+    selection-color: {title_rgba};
+}
+
+/* Sliders */
+QSlider::groove:horizontal {
+    height: 4px;
+    background: {border_rgba};
+    border-radius: 2px;
+}
+
+QSlider::sub-page:horizontal {
+    background: {accent_rgba};
+    border-radius: 2px;
+}
+
+QSlider::handle:horizontal {
+    background: {title_rgba};
+    width: 14px;
+    height: 14px;
+    margin: -5px 0;
+    border-radius: 7px;
+}
+
+/* Action Buttons */
+QPushButton#TestBtn {
+    background-color: {border_rgba};
+    color: {title_rgba};
+    border: 1px solid {border_rgba};
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-weight: bold;
+}
+
+QPushButton#TestBtn:hover {
+    background-color: {accent_rgba};
+    color: {bg_rgba};
+}
+
+QPushButton#DoneBtn {
+    background-color: {title_rgba};
+    color: {bg_rgba};
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-weight: bold;
+}
+
+QPushButton#DoneBtn:hover {
+    background-color: {accent_rgba};
+}
+
+QCheckBox {
+    color: {body_rgba};
+    font-family: "Segoe UI";
+    font-size: 9pt;
+    spacing: 8px; /* Space between the checkbox box and the text label */
+}
+
+QCheckBox::indicator {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    border: 1px solid {border_rgba};
+    background-color: {bg_rgba};
+}
+
+QCheckBox::indicator:hover {
+    border-color: {accent_rgba};
+}
+
+QCheckBox::indicator:checked {
+    background-color: {accent_rgba};
+    border-color: {accent_rgba};
+}

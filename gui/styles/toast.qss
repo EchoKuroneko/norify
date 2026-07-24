@@ -1,0 +1,45 @@
+/* Toast Outer Container */
+#Container {
+    background-color: {bg_rgba};
+    border: 1px solid {border_rgba};
+    border-radius: {border_radius};
+}
+
+/* Header / App Name Label */
+#TitleLabel {
+    color: {title_rgba};
+    font-weight: bold;
+}
+
+/* Notification Body Message */
+#MessageLabel {
+    color: {body_rgba};
+}
+
+/* Close Button */
+#CloseBtn {
+    background: transparent;
+    border: none;
+    color: {close_rgba};
+    font-size: 11px;
+    font-weight: bold;
+}
+
+#CloseBtn:hover {
+    color: {close_hover_rgba};
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+/* Bottom Progress Bar */
+QProgressBar#ToastProgressBar {
+    background-color: {bar_bg_rgba};
+    border: none;
+    border-bottom-left-radius: {border_radius};
+    border-bottom-right-radius: {border_radius};
+}
+
+QProgressBar#ToastProgressBar::chunk {
+    background-color: {bar_fill_rgba};
+    border-bottom-left-radius: {border_radius};
+}

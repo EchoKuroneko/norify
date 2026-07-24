@@ -1,0 +1,49 @@
+name: Build and Release Installer
+
+on:
+  push:
+    tags:
+      - 'v*' # Triggers whenever you push a tag starting with 'v' (e.g., v1.0.0)
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Build Executable with PyInstaller
+        run: |
+          python build.py
+
+      - name: Install Inno Setup
+        run: |
+            Invoke-WebRequest -Uri "https://files.jrsoftware.org/is/6/innosetup-6.0.3.exe" -OutFile "innosetup.exe"
+            Start-Process -FilePath "innosetup.exe" -ArgumentList "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART" -Wait
+
+      - name: Compile Installer with Inno Setup
+        run: |
+          # Make sure Inno Setup compiler path is accessible or invoke ISCC
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" setup.iss
+
+      - name: Upload Release Asset
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            Output/*.exe
+            dist/*.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
