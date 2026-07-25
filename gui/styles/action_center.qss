@@ -1,4 +1,4 @@
-QWidget#ModalBackdrop {
+QWidget#ConfirmationModal, QWidget#ShortcutsModal {
     background-color: rgba(0, 0, 0, 0.65);
 }
 
@@ -17,14 +17,13 @@ QLabel#ActionCenterTitle {
     background: transparent;
 }
 
-QFrame#ConfirmOverlay {
+QFrame#ConfirmOverlay, QFrame#ShortcutsOverlay {
     background-color: {bg_rgba};
-    border: 1px solid #f38ba8;
     border-radius: {border_radius};
 }
 
 QLabel#ConfirmTitle {
-    color: #f38ba8;
+    color: {error_rgba};
     background: transparent;
 }
 
@@ -33,28 +32,28 @@ QLabel#ConfirmMsg {
     background: transparent;
 }
 
-QPushButton#ConfirmYesBtn {
-    background-color: #f38ba8;
-    color: #11111b;
+QPushButton#DestructionYesBtn {
+    background-color: {error_rgba};
+    color: {bg_rgba};
     border: none;
     border-radius: 5px;
     padding: 6px 14px;
     font-weight: bold;
 }
 
-QPushButton#ConfirmYesBtn:hover {
-    background-color: #f5e0dc;
+QPushButton#DestructionYesBtn:hover {
+    background-color: {accent_rgba};
 }
 
-QPushButton#ConfirmNoBtn {
-    background-color: {border_rgba};
+QPushButton#DestructionNoBtn {
+    background-color: {hover_rgba};
     color: {title_rgba};
     border: none;
     border-radius: 5px;
     padding: 6px 14px;
 }
 
-QPushButton#ConfirmNoBtn:hover {
+QPushButton#DestructionNoBtn:hover {
     background-color: {title_rgba};
     color: {bg_rgba};
 }
@@ -71,12 +70,12 @@ QPushButton.SidebarFilterBtn {
 }
 
 QPushButton.SidebarFilterBtn:hover {
-    background-color: {border_rgba};
+    background-color: {hover_rgba};
     color: {title_rgba};
 }
 
 QPushButton.SidebarFilterBtn:checked {
-    background-color: {border_rgba};
+    background-color: {hover_rgba};
     color: {title_rgba};
     font-weight: bold;
 }
@@ -94,7 +93,7 @@ QScrollBar::handle:vertical {
 }
 
 QScrollBar::handle:vertical:hover {
-    background: {title_rgba};
+    background: {accent_rgba};
 }
 
 QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
@@ -115,11 +114,11 @@ QLineEdit#SearchInput {
 }
 
 QLineEdit#SearchInput:focus {
-    border: 1px solid #89b4fa;
+    border: 2px solid {accent_rgba};
 }
 
-QPushButton#DndBtn, QPushButton#SettingsBtn {
-    background-color: {border_rgba};
+QPushButton#DndBtn, QPushButton#SettingsBtn, QPushButton#ShortcutsFooterBtn, QPushButton#ConfirmYesBtn {
+    background-color: {hover_rgba};
     border: 1px solid {border_rgba};
     border-radius: 6px;
     padding: 5px 12px;
@@ -127,33 +126,28 @@ QPushButton#DndBtn, QPushButton#SettingsBtn {
     font-weight: bold;
 }
 
-QPushButton#DndBtn:checked {
-    background-color: #89b4fa;
-    color: #11111b;
+QPushButton#DndBtn:hover, QPushButton#DndBtn:checked {
+    background-color: {dnd_rgba};
+    color: {bg_rgba};
 }
 
-QPushButton#DndBtn:hover {
-    background-color: #ecf38b;
-    color: #11111b;
-}
-
-QPushButton#SettingsBtn:hover {
-    background-color: {title_rgba};
+QPushButton#SettingsBtn:hover, QPushButton#ShortcutsFooterBtn:hover, QPushButton#ConfirmYesBtn:hover {
+    background-color: {accent_rgba};
     color: {bg_rgba};
 }
 
 QPushButton#ClearBtn {
     background-color: transparent;
-    border: 1px solid #f38ba8;
+    border: 1px solid {error_rgba};
     border-radius: 6px;
     padding: 5px 12px;
-    color: #f38ba8;
+    color: {error_rgba};
     font-weight: bold;
 }
 
 QPushButton#ClearBtn:hover {
-    background-color: #f38ba8;
-    color: #11111b;
+    background-color: {error_rgba};
+    color: {bg_rgba};
 }
 
 QLabel#SortLabel, QLabel#ViewLabel {
@@ -184,6 +178,35 @@ QComboBox QAbstractItemView {
     border-radius: 6px;
     padding: 4px;
     outline: 0px;
-    selection-background-color: {border_rgba};
+    selection-background-color: {hover_rgba};
     selection-color: {title_rgba};
+}
+
+QFrame#ConfirmOverlay {
+    border: 1px solid {error_rgba};
+}
+
+QLabel#ShortcutsOverlay {
+    border: 1px solid {border_rgba};
+}
+
+QLabel#ShortcutsTitle {
+    color: {title_rgba};
+    background: transparent;
+}
+
+QLabel#ShortcutKeyChip {
+    background-color: {hover_rgba};
+    color: {accent_rgba};
+    border: 1px solid {border_rgba};
+    border-radius: {border_radius};
+    padding: 3px 6px;
+    font-family: 'Segoe UI', monospace;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+QLabel#ShortcutDescLabel {
+    color: {muted_rgba};
+    font-size: 12px;
 }

@@ -5,6 +5,7 @@ from PyQt6.QtWidgets import (
     QApplication,
     QComboBox,
     QFrame,
+    QGridLayout,
     QHBoxLayout,
     QLabel,
     QLineEdit,
@@ -16,6 +17,7 @@ from PyQt6.QtWidgets import (
 
 from config import config
 from core.logger import logger
+from core.shortcuts import APP_SHORTCUTS
 from db.history_db import HistoryDatabase
 from gui.styles.style_loader import load_component_style
 from gui.views.card_view import CardView
@@ -86,6 +88,7 @@ class ActionCenterWindow(QWidget):
 
         self._init_ui()
         self._init_modal_overlay()
+        self._init_shortcuts_overlay()
 
         self.toast_manager.dnd_changed.connect(self._on_dnd_state_changed)
 
@@ -180,13 +183,29 @@ class ActionCenterWindow(QWidget):
 
         container_layout.addWidget(self.stacked, 1)
 
+        # --- BOTTOM FOOTER BAR (Shortcuts on Left) ---
+        footer_bar = QHBoxLayout()
+        footer_bar.setContentsMargins(0, 5, 0, 0)
+
+        self.shortcuts_footer_btn = QPushButton("Shortcuts")
+        self.shortcuts_footer_btn.setObjectName("ShortcutsFooterBtn")
+        self.shortcuts_footer_btn.setCursor(Qt.CursorShape.PointingHandCursor)
+        self.shortcuts_footer_btn.setFont(QFont("Segoe UI", 9))
+        self.shortcuts_footer_btn.setToolTip("Keyboard Shortcuts")
+        self.shortcuts_footer_btn.clicked.connect(self._open_shortcuts_help)
+
+        footer_bar.addWidget(self.shortcuts_footer_btn)
+        footer_bar.addStretch()
+
+        container_layout.addLayout(footer_bar)
+
         # Add the container frame to the outer window layout
         self.main_layout.addWidget(self.container)
 
     def _init_modal_overlay(self):
         """Modal backdrop for confirmation dialogs."""
         self.modal_backdrop = QWidget(self)
-        self.modal_backdrop.setObjectName("ModalBackdrop")
+        self.modal_backdrop.setObjectName("ConfirmationModal")
         self.modal_backdrop.hide()
 
         backdrop_layout = QVBoxLayout(self.modal_backdrop)
@@ -214,12 +233,12 @@ class ActionCenterWindow(QWidget):
 
         self.confirm_yes_btn = QPushButton("Clear All")
         self.confirm_yes_btn.setCursor(Qt.CursorShape.PointingHandCursor)
-        self.confirm_yes_btn.setObjectName("ConfirmYesBtn")
+        self.confirm_yes_btn.setObjectName("DestructionYesBtn")
         self.confirm_yes_btn.clicked.connect(self._on_confirm_clear_yes)
 
         self.confirm_no_btn = QPushButton("Cancel")
         self.confirm_no_btn.setCursor(Qt.CursorShape.PointingHandCursor)
-        self.confirm_no_btn.setObjectName("ConfirmNoBtn")
+        self.confirm_no_btn.setObjectName("DestructionNoBtn")
         self.confirm_no_btn.clicked.connect(self._on_confirm_clear_no)
 
         btn_row.addStretch()
@@ -231,6 +250,71 @@ class ActionCenterWindow(QWidget):
         overlay_layout.addLayout(btn_row)
 
         backdrop_layout.addWidget(self.confirm_overlay)
+
+    def _init_shortcuts_overlay(self):
+        """Modal backdrop for displaying keyboard shortcuts"""
+        self.shortcuts_backdrop = QWidget(self)
+        self.shortcuts_backdrop.setObjectName("ShortcutsModal")
+        self.shortcuts_backdrop.hide()
+
+        backdrop_layout = QVBoxLayout(self.shortcuts_backdrop)
+        backdrop_layout.setContentsMargins(0, 0, 0, 0)
+        backdrop_layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.shortcuts_overlay = QFrame(self.shortcuts_backdrop)
+        self.shortcuts_overlay.setObjectName("ShortcutsOverlay")
+        self.shortcuts_overlay.setFixedWidth(360)
+
+        overlay_layout = QVBoxLayout(self.shortcuts_overlay)
+        overlay_layout.setContentsMargins(18, 16, 18, 16)
+        overlay_layout.setSpacing(12)
+
+        overlay_title = QLabel("Keyboard Shortcuts")
+        overlay_title.setFont(QFont("Segoe UI", 10, QFont.Weight.Bold))
+        overlay_title.setObjectName("ShortcutsTitle")
+        overlay_layout.addWidget(overlay_title)
+
+        grid_layout = QGridLayout()
+        grid_layout.setContentsMargins(0, 0, 0, 0)
+        grid_layout.setHorizontalSpacing(16)
+        grid_layout.setVerticalSpacing(12)
+
+        for row_idx, item in enumerate(APP_SHORTCUTS):
+            chip_widget = QWidget()
+            chip_layout = QHBoxLayout(chip_widget)
+            chip_layout.setContentsMargins(0, 0, 0, 0)
+            chip_layout.setSpacing(6)
+
+            bullet = QLabel("•")
+            key_chip = QLabel(item["key"])
+            key_chip.setObjectName("ShortcutKeyChip")
+
+            chip_layout.addWidget(bullet)
+            chip_layout.addWidget(key_chip)
+
+            desc_label = QLabel(item["description"])
+            desc_label.setObjectName("ShortcutDescLabel")
+            desc_label.setWordWrap(True)
+            desc_label.setMinimumHeight(32)
+
+            grid_layout.addWidget(chip_widget, row_idx, 0, Qt.AlignmentFlag.AlignLeft)
+            grid_layout.addWidget(desc_label, row_idx, 1, Qt.AlignmentFlag.AlignLeft)
+
+        overlay_layout.addLayout(grid_layout)
+
+        btn_row = QHBoxLayout()
+        btn_row.setSpacing(8)
+
+        self.shortcuts_close_btn = QPushButton("Ok")
+        self.shortcuts_close_btn.setCursor(Qt.CursorShape.PointingHandCursor)
+        self.shortcuts_close_btn.setObjectName("ConfirmYesBtn")
+        self.shortcuts_close_btn.clicked.connect(self._on_shortcuts_close)
+
+        btn_row.addStretch()
+        btn_row.addWidget(self.shortcuts_close_btn)
+        overlay_layout.addLayout(btn_row)
+
+        backdrop_layout.addWidget(self.shortcuts_overlay)
 
     # ------------------- Event & Click Logging -------------------
     def mousePressEvent(self, event: QMouseEvent):
@@ -256,6 +340,7 @@ class ActionCenterWindow(QWidget):
     def resizeEvent(self, event):
         super().resizeEvent(event)
         self.modal_backdrop.setGeometry(self.rect())
+        self.shortcuts_backdrop.setGeometry(self.rect())
 
     # ------------------- View Switching -------------------
     def _on_view_changed(self, index: int):
@@ -333,6 +418,16 @@ class ActionCenterWindow(QWidget):
         self.settings_window.raise_()
         self.settings_window.activateWindow()
 
+    def _open_shortcuts_help(self):
+        logger.info("Opening keyboard shortcuts help overlay.")
+        self.shortcuts_backdrop.setGeometry(self.rect())
+        self.shortcuts_backdrop.show()
+        self.shortcuts_backdrop.raise_()
+
+    def _on_shortcuts_close(self):
+        logger.info("Closing keyboard shortcuts help overlay.")
+        self.shortcuts_backdrop.hide()
+
     # ------------------- Theme -------------------
     def reload_theme(self):
         theme = config.current_theme
@@ -349,11 +444,26 @@ class ActionCenterWindow(QWidget):
             "title_rgba": config.hex_to_rgba(
                 theme.get("title_color", "#cdd6f4"), ui_fg_alpha
             ),
+            "muted_rgba": config.hex_to_rgba(
+                theme.get("muted_color", "#cdd6f4"), ui_fg_alpha
+            ),
             "body_rgba": config.hex_to_rgba(
                 theme.get("body_color", "#cdd6f4"), ui_fg_alpha
             ),
             "accent_rgba": config.hex_to_rgba(
-                theme.get("progress_bar_fill", "#89b4fa"), ui_fg_alpha
+                theme.get("accent_color", "#89b4fa"), ui_fg_alpha
+            ),
+            "hover_rgba": config.hex_to_rgba(
+                theme.get("hover_color", "#313244"), ui_fg_alpha
+            ),
+            "dnd_rgba": config.hex_to_rgba(
+                theme.get("dnd_color", "#f38ba8"), ui_fg_alpha
+            ),
+            "success_rgba": config.hex_to_rgba(
+                theme.get("success_color", "#a6da95"), ui_fg_alpha
+            ),
+            "error_rgba": config.hex_to_rgba(
+                theme.get("error_color", "#f38ba8"), ui_fg_alpha
             ),
             "search_bg": config.hex_to_rgba(theme.get("bg_color", "#1e1e2e"), bg_alpha),
         }
@@ -408,6 +518,7 @@ class ActionCenterWindow(QWidget):
     def hideEvent(self, event):
         self.backdrop.hide()
         self.modal_backdrop.hide()
+        self.shortcuts_backdrop.hide()
         logger.info("Action Center & backdrop hidden.")
         super().hideEvent(event)
 
@@ -440,6 +551,9 @@ class ActionCenterWindow(QWidget):
             if self.modal_backdrop.isVisible():
                 logger.info("Escape pressed: closing confirmation overlay.")
                 self.modal_backdrop.hide()
+            elif self.shortcuts_backdrop.isVisible():
+                logger.info("Escape pressed: closing shortcuts overlay.")
+                self.shortcuts_backdrop.hide()
             else:
                 logger.info("Escape pressed: hiding Action Center.")
                 self.hide()
