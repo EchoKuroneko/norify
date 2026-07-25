@@ -95,25 +95,27 @@ def draw_icon(size: int, has_update: bool = False) -> QPixmap:
 def generate_ico_file():
     # Standard Windows icon sizes
     sizes = [16, 32, 64, 128, 256]
-    pil_images = []
 
-    for size in sizes:
-        png_path = f"{ICON_DIR}/icon_{size}.png"
-        if os.path.exists(png_path):
-            continue
-        qpixmap = draw_icon(size)
-        qpixmap.save(png_path, "PNG")
-        pil_images.append(Image.open(png_path))
+    for has_update in (True, False):
+        suffix = "_unread" if has_update else ""
+        pil_images = []
+        for size in sizes:
+            png_path = ICON_DIR / f"icon_{size}{suffix}.png"
+            if os.path.exists(png_path):
+                continue
+            qpixmap = draw_icon(size, has_update)
+            qpixmap.save(str(png_path), "PNG")
+            pil_images.append(Image.open(png_path))
 
-    icon_path = f"{ICON_DIR}/app_icon.ico"
-    if not os.path.exists(icon_path):
-        # Save all sizes into a single multi-resolution .ico file
-        pil_images[0].save(
-            icon_path,
-            format="ICO",
-            sizes=[(img.width, img.height) for img in pil_images],
-            append_images=pil_images[1:],
-        )
+        icon_path = ICON_DIR / f"app_icon{suffix}.ico"
+        if not icon_path.exists():
+            # Save all sizes into a single multi-resolution .ico file
+            pil_images[0].save(
+                icon_path,
+                format="ICO",
+                sizes=[(img.width, img.height) for img in pil_images],
+                append_images=pil_images[1:],
+            )
 
-    for img in pil_images:
-        img.close()
+        for img in pil_images:
+            img.close()
