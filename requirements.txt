@@ -6,4 +6,4 @@ PyQt6==6.11.0
 qasync==0.28.0
 rapidfuzz==3.14.5
 Requests==2.34.2
-winrt==1.0.21033.1
+https://github.com/EchoKuroneko/norify/releases/download/winsdk-deps/winsdk-1.0.0b10-cp313-cp313-win_amd64.whl

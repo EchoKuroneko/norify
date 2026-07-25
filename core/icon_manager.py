@@ -6,7 +6,7 @@ from typing import Optional
 import psutil
 from PyQt6.QtCore import QFileInfo
 from PyQt6.QtWidgets import QFileIconProvider
-from winrt.windows.storage.streams import DataReader
+from winsdk.windows.storage.streams import DataReader
 
 from config import CACHE_DIR
 from core.logger import logger
@@ -181,7 +181,7 @@ class IconManager:
             try:
                 logo_ref = display_info.get_logo()
             except (TypeError, ValueError):
-                from winrt.windows.foundation import Size
+                from winsdk.windows.foundation import Size
 
                 logo_ref = display_info.get_logo(Size(32.0, 32.0))
 

@@ -2,11 +2,11 @@ import asyncio
 from typing import Set
 from PyQt6.QtCore import QObject, pyqtSignal
 
-from winrt.windows.ui.notifications.management import (
+from winsdk.windows.ui.notifications.management import (
     UserNotificationListener,
     UserNotificationListenerAccessStatus,
 )
-from winrt.windows.ui.notifications import NotificationKinds
+from winsdk.windows.ui.notifications import NotificationKinds
 
 from core.icon_manager import IconManager
 from core.logger import logger
