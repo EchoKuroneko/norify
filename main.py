@@ -1,6 +1,7 @@
 import asyncio
 import sys
 import ctypes
+from PyQt6.QtCore import QSharedMemory
 from PyQt6.QtWidgets import QApplication
 from qasync import QEventLoop
 
@@ -33,6 +34,7 @@ async def main_async(app: QApplication):
     signals = NotificationSignals()
 
     settings_window = SettingsWindow()
+    settings_window.test_notification.connect(manager.spawn_toast)
     action_center = ActionCenterWindow(manager, settings_window, db=db)
     tray_manager = SystemTrayManager(app, manager, settings_window, action_center)
 
@@ -82,6 +84,18 @@ def main():
     logger.info("Starting application...")
 
     app = QApplication(sys.argv)
+    shared_memory = QSharedMemory(f"Local\\{APP_ID}")
+    if shared_memory.attach():
+        logger.warning("Another instance of the application is already running.")
+        sys.exit(0)
+
+    if shared_memory.isAttached():
+        shared_memory.detach()
+
+    if not shared_memory.create(1):
+        logger.error("Error: Could not create shared memory segment.")
+        sys.exit(1)
+
     app.setApplicationName(APP_NAME)
     app.setApplicationDisplayName(APP_NAME)
     generate_ico_file()
