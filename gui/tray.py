@@ -4,9 +4,8 @@ from PyQt6.QtWidgets import QDialog, QMenu, QSystemTrayIcon
 import webbrowser
 
 from core.logger import logger
-from config import APP_NAME, APP_VERSION, ICON_DIR, ICON_PATH, config
+from config import APP_NAME, APP_VERSION, ICON_DIR
 from gui.action_center import ActionCenterWindow
-from gui.settings import SettingsWindow
 from gui.update_dialog import UpdateDialog
 from core.update import check_for_update
 
@@ -251,11 +250,6 @@ class SystemTrayManager:
         )
 
     def open_settings(self):
-        if not self.settings_window:
-            self.settings_window = SettingsWindow()
-        self.settings_window.test_notification_requested.connect(
-            self.trigger_test_toast
-        )
         self.settings_window.show()
         self.settings_window.raise_()
         self.settings_window.activateWindow()
@@ -272,10 +266,3 @@ class SystemTrayManager:
         self.action_center.show()
         self.action_center.raise_()
         self.action_center.activateWindow()
-
-    def trigger_test_toast(self):
-        self.toast_manager.spawn_toast(
-            app_name="Preview Toast",
-            message="Sample Notification",
-            icon_path=str(ICON_PATH),
-        )

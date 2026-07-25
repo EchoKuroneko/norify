@@ -14,7 +14,7 @@ from PyQt6.QtWidgets import (
     QVBoxLayout,
 )
 
-from config import THEMES, config, APP_NAME
+from config import THEMES, config, APP_NAME, ICON_PATH
 from core.logger import logger
 from core.startup import set_auto_start, is_auto_start_enabled
 from gui.styles.style_loader import load_component_style
@@ -24,7 +24,7 @@ class SettingsWindow(QDialog):
     """Modern Settings Window matching the toast card aesthetic."""
 
     settings_changed = pyqtSignal()
-    test_notification_requested = pyqtSignal()
+    test_notification = pyqtSignal(str, str, object)
 
     # INITIALIZATION & UI SETUP
     def __init__(self, parent=None):
@@ -58,6 +58,8 @@ class SettingsWindow(QDialog):
         self._update_combo_popup_style(self.theme_combo)
         self._update_combo_popup_style(self.pos_combo)
         self._update_combo_popup_style(self.ac_pos_combo)
+
+        self.test_btn.clicked.connect(self.on_test_clicked)
 
     def _setup_title_bar(self):
         self.title_bar_frame = QFrame()
@@ -240,7 +242,6 @@ class SettingsWindow(QDialog):
         self.test_btn = QPushButton("🔔 Test Notification")
         self.test_btn.setCursor(Qt.CursorShape.PointingHandCursor)
         self.test_btn.setObjectName("TestBtn")
-        self.test_btn.clicked.connect(self.on_test_clicked)
 
         self.done_btn = QPushButton("Done")
         self.done_btn.setCursor(Qt.CursorShape.PointingHandCursor)
@@ -449,7 +450,9 @@ class SettingsWindow(QDialog):
 
     def on_test_clicked(self):
         logger.info("Test notification requested from settings")
-        self.test_notification_requested.emit()
+        self.test_notification.emit(
+            APP_NAME, "Preview Test Notification", str(ICON_PATH)
+        )
 
     def showEvent(self, event):
         """Called automatically whenever the settings window is opened/shown."""
