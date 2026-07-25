@@ -1,7 +1,9 @@
+packaging==26.2
 Pillow==12.3.0
 psutil==7.2.2
 pynput==1.8.2
 PyQt6==6.11.0
 qasync==0.28.0
 rapidfuzz==3.14.5
+Requests==2.34.2
 winrt==1.0.21033.1
