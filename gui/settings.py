@@ -14,7 +14,7 @@ from PyQt6.QtWidgets import (
     QVBoxLayout,
 )
 
-from config import THEMES, config, APP_NAME, ICON_PATH
+from config import THEMES, config, APP_NAME, ICON_DIR, ICON_PATH
 from core.logger import logger
 from core.startup import set_auto_start, is_auto_start_enabled
 from gui.styles.style_loader import load_component_style
@@ -27,8 +27,9 @@ class SettingsWindow(QDialog):
     test_notification = pyqtSignal(str, str, object)
 
     # INITIALIZATION & UI SETUP
-    def __init__(self, parent=None):
+    def __init__(self, tray_manager=None, parent=None):
         super().__init__(parent)
+        self.tray_manager = tray_manager
         name = f"Settings - {APP_NAME}"
         self.setWindowTitle(name)
         self.setFixedSize(380, 670)  # Expanded height for extra control
@@ -467,11 +468,13 @@ class SettingsWindow(QDialog):
         config.data["suppress_windows_notifications"] = checked
         config.save()
         logger.info("Suppress Windows Focus Assist preference updated to: %s", checked)
-    
+
     def on_test_clicked(self):
         logger.info("Test notification requested from settings")
+        has_update = self.tray_manager.has_update if self.tray_manager else False
+        icon_path = ICON_DIR / "app_icon_unread.ico" if has_update else ICON_PATH
         self.test_notification.emit(
-            APP_NAME, "Preview Test Notification", str(ICON_PATH)
+            APP_NAME, "Preview Test Notification", str(icon_path)
         )
 
     def showEvent(self, event):

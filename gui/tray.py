@@ -1,10 +1,10 @@
 from PyQt6.QtCore import QObject, QThread, pyqtSignal
 from PyQt6.QtGui import QAction, QIcon
-from PyQt6.QtWidgets import QDialog, QMenu, QSystemTrayIcon
+from PyQt6.QtWidgets import QDialog, QMenu, QSystemTrayIcon, QApplication
 import webbrowser
 
 from core.logger import logger
-from config import APP_NAME, APP_VERSION, ICON_DIR
+from config import APP_NAME, APP_VERSION, ICON_DIR, ICON_PATH
 from gui.action_center import ActionCenterWindow
 from gui.update_dialog import UpdateDialog
 from core.update import check_for_update
@@ -66,7 +66,7 @@ class SystemTrayManager:
 
         # Create System Tray Icon
         self.tray = QSystemTrayIcon()
-        self.set_tray_icon()
+        self.tray.setIcon(QIcon(str(ICON_PATH)))
         self.tray.setToolTip(APP_NAME)
 
         self._build_menu()
@@ -77,12 +77,19 @@ class SystemTrayManager:
         logger.debug("Triggering background initial update check...")
         self.check_updates(manual=False)
 
-    def set_tray_icon(self):
+    def update_icon(self):
         suffix = "_unread" if self.has_update else ""
         icon_path = ICON_DIR / f"app_icon{suffix}.ico"
-        self.tray.setIcon(QIcon(str(icon_path)))
+
+        icon = QIcon(str(icon_path))
+
+        self.tray.setIcon(icon)
+        if app := QApplication.instance():
+            print("updated")
+            app.setWindowIcon(icon)
+
         logger.debug(
-            "Tray icon updated",
+            "Tray and window icons updated",
             extra={"has_update": self.has_update, "icon_path": str(icon_path)},
         )
 
@@ -181,7 +188,7 @@ class SystemTrayManager:
             extra={"latest_version": latest_version, "manual": manual},
         )
         self.has_update = True
-        self.set_tray_icon()
+        self.update_icon()
 
         if not manual:
             return
@@ -202,7 +209,7 @@ class SystemTrayManager:
     def _handle_no_update(self):
         logger.info("Handling manual check: App is already up to date.")
         self.has_update = False
-        self.set_tray_icon()
+        self.update_icon()
 
         self._show_themed_message(
             title="No Updates",

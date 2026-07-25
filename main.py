@@ -38,6 +38,7 @@ async def main_async(app: QApplication):
     settings_window.test_notification.connect(manager.spawn_toast)
     action_center = ActionCenterWindow(manager, settings_window, db=db)
     tray_manager = SystemTrayManager(app, manager, settings_window, action_center)
+    settings_window.tray_manager = tray_manager
 
     # Hotkey listener
     hotkey_thread = HotkeyListenerThread()
