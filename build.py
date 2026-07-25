@@ -79,7 +79,7 @@ def clean_build_artifacts():
 
 def run_pyinstaller():
     print(f"Building {APP_NAME} v{APP_VERSION} with PyInstaller...")
-    
+
     generate_version_info_file()
 
     # Define the separator based on OS (Windows uses ';', Mac/Linux uses ':')
