@@ -36,5 +36,6 @@ $RECYCLE.BIN/
 # Cache Folders
 assets/cache/
 
-# Notes and Resources
+# Extras
 NOTES.md
+file_version_info.txt
