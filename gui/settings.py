@@ -174,6 +174,20 @@ class SettingsWindow(QDialog):
         self.startup_checkbox.toggled.connect(self.on_startup_toggled)
         self.card_layout.addWidget(self.startup_checkbox)
 
+        self.suppress_windows_checkbox = QCheckBox(
+            "Automatically manage Windows Focus Assist"
+        )
+        self.suppress_windows_checkbox.setToolTip(
+            "Turns on Windows Focus Assist while Norify is running to prevent double notifications."
+        )
+        self.suppress_windows_checkbox.setFont(QFont("Segoe UI", 9, QFont.Weight.Bold))
+        self.suppress_windows_checkbox.setObjectName("SupressWindowsCheckBox")
+        self.suppress_windows_checkbox.setChecked(
+            config.data.get("suppress_windows_notifications", True)
+        )
+        self.suppress_windows_checkbox.toggled.connect(self.on_suppress_windows_toggled)
+        self.card_layout.addWidget(self.suppress_windows_checkbox)
+
         # Settings & Action Center Background Opacity Slider (Min 85%)
         ui_bg_box = QVBoxLayout()
         ui_bg_box.setSpacing(4)
@@ -448,6 +462,12 @@ class SettingsWindow(QDialog):
         set_auto_start(checked, APP_NAME)
         self.settings_changed.emit()
 
+    def on_suppress_windows_toggled(self, checked: bool) -> None:
+        """Updates the configuration when the Windows Focus Assist suppression toggle changes."""
+        config.data["suppress_windows_notifications"] = checked
+        config.save()
+        logger.info("Suppress Windows Focus Assist preference updated to: %s", checked)
+    
     def on_test_clicked(self):
         logger.info("Test notification requested from settings")
         self.test_notification.emit(

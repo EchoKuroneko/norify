@@ -11,7 +11,8 @@ from core.hotkey_controller import handle_global_hotkey
 from core.hotkey_listener import HotkeyListenerThread
 from core.listener import NotificationSignals, WinRTListener
 from core.logger import logger
-from config import APP_NAME, APP_ID, ICON_PATH, DB_FILE
+from core.focus_assist import query_focus_assist, set_focus_assist, FocusAssistState
+from config import APP_NAME, APP_ID, ICON_PATH, DB_FILE, config
 from db.history_db import HistoryDatabase
 from gui.action_center import ActionCenterWindow
 from gui.settings import SettingsWindow
@@ -58,6 +59,15 @@ async def main_async(app: QApplication):
     listener = WinRTListener(signals)
     listener_task = asyncio.create_task(listener.start())
 
+    previous_focus_state = query_focus_assist()
+    logger.info(
+        f"Windows Focus Assist State: {FocusAssistState(previous_focus_state).name}"
+    )
+    should_suppress = config.data.get("suppress_windows_notifications", True)
+    if should_suppress and previous_focus_state == FocusAssistState.OFF:
+        logger.info(f"Automatially enabling windows focus assist: Priority")
+        set_focus_assist(FocusAssistState.PRIORITY)
+
     # Create a shutdown event tied to Qt's exit signal
     shutdown_event = asyncio.Event()
     app.aboutToQuit.connect(shutdown_event.set)
@@ -66,6 +76,10 @@ async def main_async(app: QApplication):
 
     # Wait until app.quit() or tray exit is triggered
     await shutdown_event.wait()
+
+    if should_suppress and previous_focus_state == FocusAssistState.OFF:
+        logger.info("Restoring Windows Focus Assist state to OFF.")
+        set_focus_assist(FocusAssistState.OFF)
 
     logger.info("Shutdown signal received. Cleaning up background tasks...")
 

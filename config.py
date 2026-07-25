@@ -60,6 +60,7 @@ DEFAULT_SETTINGS: Dict[str, Any] = {
     "toast_duration_ms": 5000,
     "toast_position": "bottom_right",  # "bottom_right", "top_right", "bottom_left", "top_left"
     "action_center_position": "right",  # "right", "left"
+    "suppress_windows_notifications": True,
 }
 
 
