@@ -17,6 +17,7 @@ def resource_path(relative_path: str) -> str:
 
 AUTHOR_NAME = "EchoKuroneko"
 APP_NAME = "Norify"
+APP_VERSION = "1.1.0"
 APP_ID = AUTHOR_NAME + "." + APP_NAME
 
 # Paths
