@@ -6,6 +6,7 @@ from qasync import QEventLoop
 
 from PyQt6.QtGui import QIcon
 
+from core.hotkey_controller import handle_global_hotkey
 from core.hotkey_listener import HotkeyListenerThread
 from core.listener import NotificationSignals, WinRTListener
 from core.logger import logger
@@ -35,16 +36,13 @@ async def main_async(app: QApplication):
     action_center = ActionCenterWindow(manager, settings_window, db=db)
     tray_manager = SystemTrayManager(app, manager, settings_window, action_center)
 
-    def toggle_action_center():
-        if action_center.isVisible():
-            action_center.hide()
-        else:
-            action_center.show()
-            action_center.activateWindow()
-
     # Hotkey listener
     hotkey_thread = HotkeyListenerThread()
-    hotkey_thread.triggered.connect(toggle_action_center)
+    hotkey_thread.triggered.connect(
+        lambda action_id: handle_global_hotkey(
+            action_id, action_center, settings_window
+        )
+    )
     hotkey_thread.start()
 
     # Route signals to UI
