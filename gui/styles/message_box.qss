@@ -1,0 +1,92 @@
+/* Main Dialog background wrapper if needed */
+UpdateDialog {
+    background-color: {bg_rgba};
+}
+
+/* Outer Container Wrapper */
+QFrame#MessageContainer {
+    background-color: {bg_rgba};
+    border: 1px solid {border_rgba};
+    border-radius: {border_radius};
+}
+
+/* Main Header Text */
+QLabel#HeaderTitle {
+    color: {title_rgba};
+    font-family: 'Segoe UI';
+    font-size: 11pt;
+    font-weight: bold;
+}
+
+QPushButton#CloseBtn {
+    background-color: transparent;
+    color: {close_hover_rgba};
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+QPushButton#CloseBtn:hover {
+    background-color: rgba(243, 139, 168, 0.2);
+    background-color: {close_btn_color};
+}
+
+/* Divider Line */
+QFrame#Divider {
+    background-color: {border_rgba};
+    max-height: 1px;
+    border: none;
+}
+
+/* Secondary Informative Text */
+QLabel#SubHeader {
+    color: {body_rgba};
+    font-family: 'Segoe UI';
+    font-size: 12pt;
+}
+
+
+/* Action Buttons */
+QPushButton#DoneBtn {
+    background-color: transparent;
+    color: {body_rgba};
+    border: 1px solid {border_rgba};
+    border-radius: 6px;
+    padding: 6px 6px;
+    font-family: 'Segoe UI';
+    font-weight: bold;
+    min-width: 50px;
+    min-height: 25px;
+}
+
+QPushButton#DoneBtn:hover {
+    background-color: {title_rgba};
+    color: {bg_rgba};
+}
+
+QPushButton#DoneBtn:pressed {
+    background-color: {border_rgba};
+    color: {body_rgba}
+}
+
+/* Secondary Buttons */
+QPushButton#CancelBtn {
+    background-color: transparent;
+    color: {body_rgba};
+    border: 1px solid {border_rgba};
+    border-radius: 6px;
+    padding: 6px 6px;
+    font-family: 'Segoe UI';
+    min-width: 50px;
+    min-height: 25px;
+}
+
+QPushButton#CancelBtn:hover {
+    background-color: {border_rgba};
+    color: {title_rgba};
+}
+
+QPushButton#CancelBtn:pressed {
+    background-color: {accent_rgba};
+    color: {body_rgba}
+}
