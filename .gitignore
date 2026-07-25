@@ -12,7 +12,7 @@ dist/
 *.egg-info/
 Output/
 
-# PyInstaller temporary spec files (keep your custom Norify.spec if tracked, ignore generated ones if needed)
+# PyInstaller temporary spec files
 # *.spec
 
 # Virtual Environments
@@ -35,3 +35,6 @@ $RECYCLE.BIN/
 
 # Cache Folders
 assets/cache/
+
+# Notes and Resources
+NOTES.md
