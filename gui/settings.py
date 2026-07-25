@@ -340,44 +340,39 @@ class SettingsWindow(QDialog):
     # STYLES & EVENT HANDLERS
     def apply_theme_styles(self):
         theme = config.current_theme
-        # Settings & Action Center background opacity
         bg_alpha = max(0.85, float(config.data.get("ui_bg_opacity", 0.95)))
-        ui_fg_alpha = 1.0
+        ui_fg_alpha = config.data.get("fg_opacity", 1.0)
+
+        bg_hex = theme.get("bg_color", "#202020")
+        text_hex = theme.get("title_color", "#FFFFFF")
+        body_hex = theme.get("body_color", "#CCCCCC")
+        border_hex = theme.get("border_color", "#404040")
+        accent_hex = theme.get("progress_bar_fill", "#007ACC")
+        error_hex = theme.get("error_color", "#f38ba8")
 
         pin_bg = (
-            config.hex_to_rgba(theme.get("progress_bar_fill", "#007ACC"), ui_fg_alpha)
+            config.hex_to_rgba(accent_hex, ui_fg_alpha)
             if self.is_pinned
             else "transparent"
         )
         pin_color = (
-            config.hex_to_rgba(theme.get("bg_color", "#202020"), bg_alpha)
+            config.hex_to_rgba(bg_hex, bg_alpha)
             if self.is_pinned
-            else config.hex_to_rgba(theme.get("body_color", "#CCCCCC"), ui_fg_alpha)
+            else config.hex_to_rgba(body_hex, ui_fg_alpha)
         )
 
         style_vars = {
-            "bg_rgba": config.hex_to_rgba(theme.get("bg_color", "#202020"), bg_alpha),
-            "border_rgba": config.hex_to_rgba(
-                theme.get("border_color", "#404040"), bg_alpha
-            ),
+            "settings_bg_rgba": config.hex_to_rgba(bg_hex, bg_alpha),
+            "settings_bg_opaque": config.hex_to_rgba(bg_hex, 1.0),
+            "border_rgba": config.hex_to_rgba(border_hex, bg_alpha),
             "border_radius": str(theme.get("border_radius", "12px")),
-            "title_rgba": config.hex_to_rgba(
-                theme.get("title_color", "#FFFFFF"), ui_fg_alpha
-            ),
-            "body_rgba": config.hex_to_rgba(
-                theme.get("body_color", "#CCCCCC"), ui_fg_alpha
-            ),
-            "accent_rgba": config.hex_to_rgba(
-                theme.get("progress_bar_fill", "#007ACC"), ui_fg_alpha
-            ),
+            "title_rgba": config.hex_to_rgba(text_hex, ui_fg_alpha),
+            "body_rgba": config.hex_to_rgba(body_hex, ui_fg_alpha),
+            "accent_rgba": config.hex_to_rgba(accent_hex, ui_fg_alpha),
+            "error_rgba": config.hex_to_rgba(error_hex, ui_fg_alpha),
             "pin_bg": pin_bg,
             "pin_color": pin_color,
-            "close_hover_rgba": config.hex_to_rgba(
-                theme.get("close_btn_hover", "#FFFFFF"), ui_fg_alpha
-            ),
-            "dropdown_arrow_rgba": config.hex_to_rgba(
-                theme.get("body_color", "#CCCCCC"), ui_fg_alpha
-            ),
+            "dropdown_arrow_rgba": config.hex_to_rgba(body_hex, ui_fg_alpha),
         }
 
         try:
@@ -439,7 +434,6 @@ class SettingsWindow(QDialog):
         logger.debug(
             "Notification foreground opacity adjusted", extra={"opacity": opacity}
         )
-        # Note: Does NOT call self.apply_theme_styles() so the settings UI remains isolated from toast text opacity changes
         self.settings_changed.emit()
 
     def _on_position_changed(self, index: int):

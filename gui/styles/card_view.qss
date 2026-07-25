@@ -18,10 +18,10 @@ QWidget#CardListContainer {
 QPushButton#SidebarFilterBtn {
     background-color: transparent;
     border: none;
-    border-radius: 6px;
+    border-radius: {border_radius};
     padding: 6px 8px;
     text-align: left;
-    color: #a6adc8;
+    color: {muted_rgba};
     font-size: 12px;
 }
 
@@ -37,14 +37,14 @@ QPushButton#SidebarFilterBtn:checked {
 }
 
 QLabel#DateLabel {
-    color: #a6adc8;
+    color: {muted_rgba};
     font-size: 11px;
 }
 
 QDateEdit#DateEdit {
     background-color: {bg_rgba};
     border: 1px solid {border_rgba};
-    border-radius: 6px;
+    border-radius: {border_radius};
     padding: 4px 8px;
     color: {title_rgba};
     font-size: 12px;
@@ -60,7 +60,7 @@ QDateEdit#DateEdit::drop-down {
 QPushButton#DateGoBtn {
     background-color: {border_rgba};
     border: none;
-    border-radius: 6px;
+    border-radius: {border_radius};
     padding: 4px 8px;
     color: {title_rgba};
     font-size: 12px;
@@ -69,10 +69,10 @@ QPushButton#DateGoBtn {
 
 QPushButton#DateGoBtn:hover {
     background-color: {accent_rgba};
-    color: #11111b;
+    color: {bg_opaque};
 }
 
 QLabel#EmptyNoticeLabel {
-    color: #6c7086;
+    color: {muted_rgba};
     margin-top: 30px;
 }

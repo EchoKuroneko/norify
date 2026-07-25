@@ -60,16 +60,23 @@ class GroupedView(QWidget):
 
     def reload_theme(self):
         theme = config.current_theme
+        fg_alpha = config.data.get("fg_opacity", 1.0)
+
         bg_hex = theme.get("bg_color", "#1e1e2e")
         text_hex = theme.get("title_color", "#cdd6f4")
         border_hex = theme.get("border_color", "#45475a")
+        muted_hex = theme.get("muted_color", "#6c7086")
+        error_hex = theme.get("error_color", "#f38ba8")
 
         style_vars = {
-            "bg_rgba": config.hex_to_rgba(bg_hex, 0.6),
-            "border_rgba": border_hex,
-            "border_hover_rgba": config.hex_to_rgba(border_hex, 0.4),
-            "title_rgba": text_hex,
-            "body_rgba": str(theme.get("body_color", "#a6adc8")),
+            "group_header_bg_rgba": config.hex_to_rgba(bg_hex, 0.6),
+            "group_header_border_rgba": config.hex_to_rgba(border_hex, 0.4),
+            "group_header_hover_rgba": config.hex_to_rgba(border_hex, 0.6),
+            "border_radius": str(theme.get("border_radius", "6px")),
+            "title_rgba": config.hex_to_rgba(text_hex, fg_alpha),
+            "muted_rgba": config.hex_to_rgba(muted_hex, fg_alpha),
+            "error_rgba": config.hex_to_rgba(error_hex, fg_alpha),
+            "bg_opaque": config.hex_to_rgba(bg_hex, 1.0),
         }
 
         try:

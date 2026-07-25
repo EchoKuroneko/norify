@@ -21,13 +21,13 @@ QFrame#GroupFrame {
 }
 
 QWidget#GroupHeaderBar {
-    background-color: {bg_rgba};
-    border: 1px solid {border_rgba};
-    border-radius: 4px;
+    background-color: {group_header_bg_rgba};
+    border: 1px solid {group_header_border_rgba};
+    border-radius: {border_radius};
 }
 
 QWidget#GroupHeaderBar:hover {
-    background-color: {border_hover_rgba};
+    background-color: {group_header_hover_rgba};
 }
 
 QLabel#GroupArrowLabel {
@@ -44,14 +44,15 @@ QLabel#GroupTitleLabel {
 QPushButton#GroupClearBtn {
     background: transparent;
     border: none;
-    color: #f38ba8;
+    color: {error_rgba};
     font-size: 11px;
     padding: 2px 4px;
     border-radius: 3px;
 }
 
 QPushButton#GroupClearBtn:hover {
-    background-color: rgba(243, 139, 168, 0.2);
+    background-color: {error_rgba};
+    color: {bg_opaque};
 }
 
 QWidget#GroupItemsContainer {
@@ -59,6 +60,6 @@ QWidget#GroupItemsContainer {
 }
 
 QLabel#EmptyNoticeLabel {
-    color: #6c7086;
+    color: {muted_rgba};
     margin-top: 30px;
 }

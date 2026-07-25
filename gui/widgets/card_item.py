@@ -32,13 +32,17 @@ class CardItem(QFrame):
         bg_rgba = config.hex_to_rgba(theme.get("bg_color", "#1e1e2e"), 0.6)
         border_rgba = config.hex_to_rgba(theme.get("border_color", "#45475a"), 0.4)
         title_color = theme.get("title_color", "#cdd6f4")
-        msg_color = theme.get("message_color", "#bac2de")
+        body_color = theme.get("body_color", "#cdd6f4")
+        muted_color = theme.get("muted_color", "#6c7086")
+        error_color = theme.get("error_color", "#f38ba8")
 
         style_vars = {
             "card_bg_rgba": bg_rgba,
             "card_border_rgba": border_rgba,
-            "title_rgba": title_color,
-            "msg_rgba": msg_color,
+            "title_rgba": config.hex_to_rgba(title_color, fg_alpha),
+            "msg_rgba": config.hex_to_rgba(body_color, fg_alpha),
+            "muted_rgba": config.hex_to_rgba(muted_color, fg_alpha),
+            "error_rgba": config.hex_to_rgba(error_color, fg_alpha),
         }
 
         try:

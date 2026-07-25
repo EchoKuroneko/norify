@@ -127,16 +127,22 @@ class CardView(QWidget):
 
     def reload_theme(self):
         theme = config.current_theme
-        bg_hex = theme.get("bg_color", "#1e1e2e")
-        text_hex = theme.get("title_color", "#cdd6f4")
-        border_hex = theme.get("border_color", "#45475a")
+        fg_alpha = config.data.get("fg_opacity", 1.0)
+
+        bg_color = theme.get("bg_color", "#1e1e2e")
+        border_color = theme.get("border_color", "#45475a")
+        title_color = theme.get("title_color", "#cdd6f4")
+        muted_color = theme.get("muted_color", "#6c7086")
+        accent_color = theme.get("accent_color", "#89b4fa")
 
         style_vars = {
-            "bg_rgba": config.hex_to_rgba(bg_hex, 0.8),
-            "border_rgba": border_hex,
-            "title_rgba": text_hex,
-            "body_rgba": "#a6adc8",
-            "accent_rgba": "#89b4fa",
+            "bg_rgba": config.hex_to_rgba(bg_color, 0.8),
+            "bg_opaque": config.hex_to_rgba(bg_color, 1.0),
+            "border_rgba": config.hex_to_rgba(border_color, 0.4),
+            "border_radius": str(theme.get("border_radius", "6px")),
+            "title_rgba": config.hex_to_rgba(title_color, fg_alpha),
+            "muted_rgba": config.hex_to_rgba(muted_color, fg_alpha),
+            "accent_rgba": config.hex_to_rgba(accent_color, fg_alpha),
         }
 
         try:

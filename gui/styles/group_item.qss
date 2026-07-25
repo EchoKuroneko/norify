@@ -1,7 +1,7 @@
 QFrame#GroupListItem {
     background-color: {group_item_bg_rgba};
     border: 1px solid {group_item_border_rgba};
-    border-radius: 6px;
+    border-radius: {border_radius};
 }
 
 QFrame#GroupListItem QLabel {
@@ -14,7 +14,7 @@ QLabel#GroupItemTitleLabel {
 }
 
 QLabel#GroupItemTimeLabel {
-    color: #a6adc8;
+    color: {muted_rgba};
 }
 
 QLabel#GroupItemMsgLabel {
@@ -24,12 +24,13 @@ QLabel#GroupItemMsgLabel {
 QPushButton#GroupItemDeleteBtn {
     background: transparent;
     border: none;
-    color: #f38ba8;
+    color: {error_rgba};
     font-size: 11px;
     padding: 2px 4px;
     border-radius: 3px;
 }
 
 QPushButton#GroupItemDeleteBtn:hover {
-    background-color: rgba(243, 139, 168, 0.2);
+    background-color: {error_rgba};
+    color: {bg_rgba};
 }

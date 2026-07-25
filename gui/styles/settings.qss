@@ -1,6 +1,6 @@
 /* Settings Card Outer Container */
 QFrame#SettingsContainer {
-    background-color: {bg_rgba};
+    background-color: {settings_bg_rgba};
     border: 1px solid {border_rgba};
     border-radius: {border_radius};
 }
@@ -42,13 +42,13 @@ QPushButton#CloseBtn {
 }
 
 QPushButton#CloseBtn:hover {
-    background-color: rgba(243, 139, 168, 0.2);
-    color: {close_hover_rgba};
+    background-color: {error_rgba};
+    color: {bg_opaque};
 }
 
 /* ComboBoxes */
 QComboBox {
-    background-color: "{border_rgba}";
+    background-color: {border_rgba};
     color: {body_rgba};
     border: 1px solid {border_rgba};
     border-radius: 6px;
@@ -79,7 +79,7 @@ QComboBox::down-arrow {
 }
 
 QComboBox QAbstractItemView {
-    background-color: {bg_rgba};
+    background-color: {settings_bg_rgba};
     color: {body_rgba};
     border: 1px solid {border_rgba};
     border-radius: 6px;
@@ -121,12 +121,12 @@ QPushButton#TestBtn {
 
 QPushButton#TestBtn:hover {
     background-color: {accent_rgba};
-    color: {bg_rgba};
+    color: {settings_bg_opaque};
 }
 
 QPushButton#DoneBtn {
     background-color: {title_rgba};
-    color: {bg_rgba};
+    color: {settings_bg_opaque};
     border: none;
     border-radius: 6px;
     padding: 8px 12px;
@@ -141,7 +141,7 @@ QCheckBox {
     color: {body_rgba};
     font-family: "Segoe UI";
     font-size: 9pt;
-    spacing: 8px; /* Space between the checkbox box and the text label */
+    spacing: 8px;
 }
 
 QCheckBox::indicator {
@@ -149,7 +149,7 @@ QCheckBox::indicator {
     height: 16px;
     border-radius: 4px;
     border: 1px solid {border_rgba};
-    background-color: {bg_rgba};
+    background-color: {settings_bg_rgba};
 }
 
 QCheckBox::indicator:hover {
